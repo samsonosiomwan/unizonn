@@ -1,42 +1,37 @@
-import {useEffect, useState} from 'react';
-import { useQuery} from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import { GET_USER } from "../../GraphQL/Queries";
 import FriendsToNetwork from "./FriendsToNetwork";
-import { Button, Grid, Typography } from "@material-ui/core"
-import { userProfileStyles } from '../../MaterialUi/UserProfile';
+import { Button, Grid, Typography } from "@material-ui/core";
+import { userProfileStyles } from "../../MaterialUi/UserProfile";
 
 import Hero from "./Hero";
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
+import MobileHero from "./Hero/MobileHero";
 // import MobileWebMenu from './MobileWebMenu';
 
-
-
-
-
 const UserProfile = () => {
-const { loading, data} = useQuery(GET_USER);
-const [userData, setUserData] = useState("");
-const [department, setDepartment] = useState("");
-const [institution, setInstitution] = useState("");
-const [country, setCountry] = useState("");
-const [followership, setFollowership] = useState("");
-const [interests, setInterests] = useState("");
-const classes = userProfileStyles();
+  const { loading, data } = useQuery(GET_USER);
+  const [userData, setUserData] = useState("");
+  const [department, setDepartment] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [country, setCountry] = useState("");
+  const [followership, setFollowership] = useState("");
+  const [interests, setInterests] = useState("");
+  const classes = userProfileStyles();
 
-useEffect(() => {
-  // console.log("====>", data.getUser);
-  if(data ){
-   
-    setUserData(data.getUser.payload);
-    setDepartment(data.getUser.payload.department);
-    setInstitution(data.getUser.payload.institution);
-    setCountry(data.getUser.payload.country);
-    setFollowership(data.getUser.payload.followership);
-    setInterests(data.getUser.payload.interests);
-  };
-}, [loading,data]);
-      // console.log("====userData==>", userData.interests)
-
+  useEffect(() => {
+    // console.log("====>", data.getUser);
+    if (data) {
+      setUserData(data.getUser.payload);
+      setDepartment(data.getUser.payload.department);
+      setInstitution(data.getUser.payload.institution);
+      setCountry(data.getUser.payload.country);
+      setFollowership(data.getUser.payload.followership);
+      setInterests(data.getUser.payload.interests);
+    }
+  }, [loading, data]);
+  // console.log("====userData==>", userData.interests)
 
   return (
     <>
@@ -48,11 +43,28 @@ useEffect(() => {
             container
             justifyContent="center"
             alignItems="flex-start"
+            style={{ padding: "0" }}
             spacing={2}
             className={classes.grid}
           >
-            <Grid item sm={12} md={7}>
+            <Grid item sm={12} md={7} className={classes.heroLayout}>
               <Hero
+                userData={userData}
+                department={department}
+                institution={institution}
+                country={country}
+                followership={followership}
+                interests={interests}
+              />
+            </Grid>
+            <Grid
+              item
+              sm={12}
+              md={7}
+              className={classes.mobileHero}
+              style={{ padding: "0", margin: "0", }}
+            >
+              <MobileHero
                 userData={userData}
                 department={department}
                 institution={institution}
@@ -128,11 +140,9 @@ useEffect(() => {
                 <FriendsToNetwork />
               </Stack>
               <Stack
-                // className={classes.connectionStackItem}
                 style={{
                   padding: "0",
                   marginTop: 15,
-                  // backgroundColor:"white"
                 }}
               >
                 <Button

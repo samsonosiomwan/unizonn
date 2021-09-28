@@ -1,32 +1,23 @@
 import { Box, Typography } from "@material-ui/core";
 import { Stack } from "@mui/material";
-import {
- 
-  userProfileStyles,
- 
-} from "../../../MaterialUi/UserProfile";
+import { userProfileStyles } from "../../../MaterialUi/UserProfile";
 
 const Interests = ({ interests }) => {
   const classes = userProfileStyles();
 
   return (
     <>
-      <Box className={classes.boxItem} >
+      <Box className={classes.boxItem}>
         <Typography
           style={{
             fontSize: "14px",
             fontWeight: 600,
-            // lineHeight: "40px",
           }}
         >
           Interests
         </Typography>
 
-        <Stack
-          direction="row"
-          spacing={1}
-          // style={{ marginTop: "-10px" }}
-        >
+        <Stack direction="row" spacing={1}>
           <Typography
             className={classes.stackItemLabel}
             style={{ lineHeight: "1em" }}

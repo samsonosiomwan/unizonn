@@ -6,19 +6,18 @@ import {
   CardContent,
   CardMedia,
   Grid,
-
   Typography,
 } from "@material-ui/core";
-import {  Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import {
   userProfileStyles,
   StyledAvatarGroup,
 } from "../../MaterialUi/UserProfile";
 import GraduationCap from "../../Assets/Icons/GraduationCap.svg";
-import Close  from "../../Assets/Icons/Close.svg";
+import Close from "../../Assets/Icons/Close.svg";
 
 const FriendsToNetwork = () => {
- const classes = userProfileStyles();
+  const classes = userProfileStyles();
   return (
     <>
       <Card

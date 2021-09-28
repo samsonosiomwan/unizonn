@@ -1,4 +1,4 @@
-import { Box} from "@material-ui/core";
+import { Grid} from "@material-ui/core";
 import { Stack } from "@mui/material";
 import { userProfileStyles } from "../../../MaterialUi/UserProfile";
 
@@ -11,23 +11,25 @@ const FollowDetails = ({
 
   return (
     <>
-      <Box style={{ marginTop: "4%" }}>
-        <Stack
-          direction="row"
-          spacing={9}
-          justifyContent="flex-start"
-          // alignItems="center"
-        >
+      <Grid
+        item
+        style={{
+          marginTop: "4%",
+          width: "100%",
+        }}
+        sm={12}
+      >
+        <Stack direction="row" spacing={16} justifyContent="flext-start">
           <span className={classes.stackItem}>{numberOfFollowers}</span>
           <span className={classes.stackItem}>{numberOfFollowing}</span>
           <span className={classes.stackItem}>{numberOfConnections}</span>
         </Stack>
-        <Stack direction="row" spacing={5}>
+        <Stack direction="row" spacing={12}>
           <span className={classes.stackItemLabel}>followers</span>
           <span className={classes.stackItemLabel}>following</span>
           <span className={classes.stackItemLabel}>connection</span>
         </Stack>
-      </Box>
+      </Grid>
     </>
   );
 };

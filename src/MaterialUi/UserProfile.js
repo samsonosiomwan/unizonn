@@ -5,6 +5,7 @@ import Badge from "@mui/material/Badge";
 import { AvatarGroup } from "@mui/material";
 
 
+
 export const userProfileStyles = makeStyles({
   root: {
     "& .MuiAvatarGroup-root": { borderRadius: "38px" },
@@ -26,6 +27,9 @@ export const userProfileStyles = makeStyles({
   },
   item: {
     marginTop: theme.spacing(6),
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(4),
+    },
   },
   item2: {
     marginTop: theme.spacing(2),
@@ -33,13 +37,21 @@ export const userProfileStyles = makeStyles({
 
   boxItem: {
     marginTop: theme.spacing(5),
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(1),
+    },
   },
   connectionStackItem: {
     marginLeft: theme.spacing(5),
     marginRight: theme.spacing(1),
   },
   marginLeft11: {
-    marginLeft: theme.spacing(11),
+    marginLeft: theme.spacing(12.5),
+    // paddingLeft: theme.spacing(13),
+  },
+  paddingLeft2: {
+    paddingLeft: theme.spacing(2),
+    // paddingLeft: theme.spacing(13),
   },
   heroBackground: {
     marginRight: theme.spacing(2),
@@ -87,10 +99,31 @@ export const userProfileStyles = makeStyles({
   typographyConnections: {
     fontSize: "12px",
     lineHeight: "17.82px",
-    paddingLeft: 5,
+    paddingLeft: 8,
   },
 
   button: {
+    borderRadius: "8px",
+    textTransform: "capitalize",
+    paddingLeft: "15%",
+    paddingRight: "15%",
+  },
+
+  button2: {
+    borderRadius: "8px",
+    textTransform: "capitalize",
+    paddingLeft: "15%",
+    paddingRight: "15%",
+  },
+
+  mobileButton: {
+    borderRadius: "8px",
+    textTransform: "capitalize",
+    paddingLeft: "15%",
+    paddingRight: "15%",
+  },
+
+  mobileButton2: {
     borderRadius: "8px",
     textTransform: "capitalize",
     paddingLeft: "15%",
@@ -127,7 +160,30 @@ export const userProfileStyles = makeStyles({
     },
   },
 
+  mobilestickyContainer: {
+    position: "sticky",
+    top: "10vh",
+    zIndex: "1000",
+    [theme.breakpoints.down("sm")]: {
+      position: "sticky",
+      top: 0,
+      zIndex: "1000",
+    },
+  },
+
   friendsToNetworkBox: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+
+  mobileHero: {
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
+
+  heroLayout: {
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -152,6 +208,7 @@ export const userProfileStyles = makeStyles({
       display: "none",
     },
   },
+  mobileCard: {},
 });
 
 export const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -170,8 +227,8 @@ export const StyledBadge = styled(Badge)(({ theme }) => ({
       position: "absolute",
       top: 0,
       left: -100,
-      width: "100%",
-      height: "100%",
+      // width: "100%",
+      // height: "100%",
       borderRadius: "50%",
       //   animation: "ripple 1.2s infinite ease-in-out",
       //   border: "1px solid #8D8D8D",
@@ -191,6 +248,8 @@ export const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+
+
 export const StyledAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
   "& .MuiAvatarGroup-avatar": {
     // backgroundColor: "#44b700",
@@ -205,6 +264,8 @@ export const StyledAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
     
   },
 }));
+
+
 
 export const Img = styled("img")({
   //   margin: "auto",

@@ -1,8 +1,10 @@
-import background from "../../../Assets/Image/background.svg";
+
 import Acadamian from "../../../Assets/Icons/Acadamian.svg";
+import MobileBackground from "../../../Assets/Icons/MobileBackground.svg";
+
+
 import PreviousArrow from "../../../Assets/Icons/PreviousArrow.svg";
 import { useMutation } from "@apollo/client";
-
 
 // import About from "../About";
 
@@ -17,23 +19,25 @@ import {
   Typography,
   Tabs,
   Tab,
+  CardHeader,
 } from "@material-ui/core";
 
 import {
   Img,
   userProfileStyles,
   StyledBadge,
+  
 } from "../../../MaterialUi/UserProfile";
 import { Stack } from "@mui/material";
 import About from "../About";
-import Articles from "../Articles"
+import Articles from "../Articles";
 import { useState, useEffect } from "react";
 import Posts from "../Posts";
 import Interests from "./Intrests";
 import FollowDetails from "./followDetails";
 import { FOLLOW } from "../../../GraphQL/Mutations";
 
-const Hero = ({
+const MobileHero = ({
   userData,
   department,
   institution,
@@ -43,17 +47,17 @@ const Hero = ({
 }) => {
   const { firstname, lastname, role, numberOfConnections } = userData;
   const { numberOfFollowers, numberOfFollowing } = followership;
-  const [follow, {error, data}] = useMutation(FOLLOW);
+  const [follow, { error, data }] = useMutation(FOLLOW);
   const [followed, setFollowed] = useState("");
   const classes = userProfileStyles();
-  const [value, setValue] = useState(0)
-  const handleTabs = (e, val) =>{
-      setValue(val)
-  }
+  const [value, setValue] = useState(0);
+  const handleTabs = (e, val) => {
+    setValue(val);
+  };
 
-  const handleFollow = (e) =>{
+  const handleFollow = (e) => {
     e.preventDefault();
-    (async()=> {
+    (async () => {
       const a = await follow({
         variables: {
           following: "60eeb6c09446750021736263",
@@ -61,29 +65,43 @@ const Hero = ({
           follower: "60eeb6c09446750021736263",
           // 2262007315 zenith
           unFollow: false,
-        }
+        },
       });
 
-      console.log(a, ">>>>>>>")
+      console.log(a, ">>>>>>>");
       setFollowed(a.data.follow.description);
 
       if (!a) {
         console.log("=====>", error);
       }
-    })() 
-   
-  }
+    })();
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     setFollowed("follow");
-  }, [follow])
+  }, [follow]);
 
-   console.log("=====>", data);
+  console.log("=====>", data);
 
   return (
     <>
-      <Container container >
-        <Paper className={classes.stickyContainer}>
+      <Container
+        // container
+        style={{ padding: "0", margin: "0" }}
+      >
+        <Paper
+          className={classes.mobileStickyContainer}
+          style={{
+            // p: 2, margin: "auto", maxWidth: 500, flexGrow: 1,
+            width:"100%",
+            backgroundImage: `url(${MobileBackground})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left top",
+            // padding: "0",
+            // margin: "0",
+            // border: "1px solid black",
+          }}
+        >
           <Grid spacing={2} className={classes.hero} container direction="row">
             <Grid item>
               <img src={PreviousArrow} alt="back" />
@@ -91,49 +109,78 @@ const Hero = ({
             <Grid item>{firstname}'s Profile</Grid>
           </Grid>
 
-          <Box
-            container
-            className={classes.heroBackground}
-            style={{
-              // p: 2, margin: "auto", maxWidth: 500, flexGrow: 1,
-
-              backgroundImage: `url(${background})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "right top",
-            }}
-          >
+          <Box container className={classes.heroBackground}>
             <Grid container spacing={4} className={classes.hero}>
-              <Grid
-                item
-                sm={5}
-                className={classes.gridItem}
-                style={{
-                  paddingBottom: "0",
-                  paddingTop: "0",
-                  paddingRight: "0",
-                }}
+              <Stack
+                direction="row"
+                spacing={2}
+                justifyContent="space-evenly"
+              
+                className={classes.paddingLeft2}
               >
                 <StyledBadge
+                  component="span"
                   overlap="rectangle"
                   anchorOrigin={{ vertical: "top", horizontal: "right" }}
                   variant="dot"
                   style={{
-                    width: "100%",
-                    height: "100%",
+                    width: "128px",
+                    height: "128px",
                   }}
                 >
-                  <Img alt={firstname} src="https://res.cloudinary.com/seeautos/image/upload/v1628133133/sample.jpg" />
+                  <Img
+                    alt={firstname}
+                    src="https://res.cloudinary.com/seeautos/image/upload/v1628133133/sample.jpg"
+                  />
                 </StyledBadge>
-              </Grid>
+
+                <span>
+                  {" "}
+                  <Typography
+                    gutterBottom
+                    variant="subtitle1"
+                    component="div"
+                    style={{ paddingTop: "3%" }}
+                    className={classes.heroHeader}
+                  >
+                    {firstname} {lastname}
+                  </Typography>
+                  <CardHeader
+                    className={classes.typographyHeader}
+                    style={{ padding: "0" }}
+                    avatar={
+                      <Avatar
+                        variant="square"
+                        src={Acadamian}
+                        style={{ width: "24px", height: "19.69px" }}
+                      >
+                        {Acadamian}
+                      </Avatar>
+                    }
+                    title={role ? role.toLowerCase() : ""}
+                  />
+                  <Typography
+                    // component="div"
+                    className={classes.typography}
+                    style={{ paddingTop: "3%", paddingBottom: "3%" }}
+                  >
+                    {department.subject}
+                  </Typography>
+                  <Typography className={classes.typography}>
+                    {institution.name}, {country.name}
+                  </Typography>{" "}
+                </span>
+              </Stack>
 
               <Grid
                 item
                 // xs={12}
                 alignItems="stretch"
-                sm={5}
+                sm={12}
                 // style={{ padding: "0" }}
                 style={{
                   padding: "0",
+                  width: "100%",
                 }}
               >
                 <Grid
@@ -150,54 +197,22 @@ const Hero = ({
                   }}
                 >
                   <Grid item xs style={{ padding: "0" }}>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      className={classes.heroHeader}
-                    >
-                      {firstname} {lastname}
-                    </Typography>
-
                     <Grid container wrap="nowrap" spacing={3}>
-                      <Grid item>
-                        <Avatar
-                          variant="square"
-                          src={Acadamian}
-                          style={{ width: "24px", height: "19.69px" }}
-                        >
-                          {Acadamian}
-                        </Avatar>
-                      </Grid>
+                      <Grid item></Grid>
                       <Grid item xs>
-                        <Typography className={classes.typographyHeader}>
-                          {role ? role.toLowerCase() : ""}
-                        </Typography>
-                        <Typography className={classes.typography}>
-                          {department.subject}
-                        </Typography>
-                        <Typography className={classes.typography}>
-                          {institution.name}, {country.name}
-                        </Typography>
-
-                        <Box className={classes.interests}>
-                          <Interests interests={interests} />
-                        </Box>
+                        <Interests interests={interests} />
 
                         <FollowDetails
                           numberOfFollowers={numberOfFollowers}
                           numberOfFollowing={numberOfFollowing}
                           numberOfConnections={numberOfConnections}
                         />
-                        <Box className={classes.mobileInterests}>
-                          <Interests interests={interests} />
-                        </Box>
+
                         <Box className={classes.item}>
                           <Stack spacing={3} direction="row">
-                            
                             <Button
-                              className={classes.button2}
-                              size="small"
+                              className={classes.mobileButton}
+                              size="large"
                               color="secondary"
                               variant="contained"
                               onClick={handleFollow}
@@ -205,9 +220,9 @@ const Hero = ({
                               {followed}
                             </Button>
                             <Button
-                              className={classes.button}
+                              className={classes.mobileButton2}
                               color="secondary"
-                              size="small"
+                              size="large"
                               variant="outlined"
                             >
                               Message
@@ -233,7 +248,15 @@ const Hero = ({
             </Tabs>
           </Box>
         </Paper>
-        <Card style={{ marginTop: 40, borderRadius: "16px", padding: "0" }}>
+        <Card
+          style={{
+            marginTop: 15,
+            marginLeft: 30,
+            marginRight: 30,
+            borderRadius: "16px",
+            padding: "0",
+          }}
+        >
           <TabPanel value={value} index={0}>
             <About />
           </TabPanel>
@@ -249,9 +272,9 @@ const Hero = ({
   );
 };
 
-const TabPanel = (props) =>{
-  const {children, value, index} = props
-  return <>{value===index&&<div>{children}</div>}</>;
+const TabPanel = (props) => {
+  const { children, value, index } = props;
+  return <>{value === index && <div>{children}</div>}</>;
 };
 
-export default Hero;
+export default MobileHero;
